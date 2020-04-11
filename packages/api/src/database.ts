@@ -16,4 +16,4 @@ const dbOptions = process.env.DATABASE_URL || {
 
 // Communicate to our database
 // @ts-ignore
-export const sequelize = new Sequelize({ dbObtions });
+export const sequelize = new Sequelize({ dbOptions });
