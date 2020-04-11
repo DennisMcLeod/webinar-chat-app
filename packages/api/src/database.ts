@@ -7,8 +7,9 @@ const dbOptions = process.env.DATABASE_URL || {
   password: '',
   storage: 'chat.db',
   models: [__dirname + '/models'],
-  logging: false,
+  logging: false
 };
+
 
 // production
 // development
@@ -16,4 +17,4 @@ const dbOptions = process.env.DATABASE_URL || {
 
 // Communicate to our database
 // @ts-ignore
-export const sequelize = new Sequelize({ dbOptions });
+export const sequelize = new Sequelize(dbOptions);
