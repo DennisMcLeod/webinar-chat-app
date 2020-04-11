@@ -6,7 +6,7 @@ import PluginTerser from 'terser-webpack-plugin';
 const PluginReplace = require('webpack-plugin-replace');
 
 const DEFAULT_ENV = {
-  NODE_ENV: 'development'
+  NODE_ENV: 'development',
 };
 
 const ENV = Object.entries(DEFAULT_ENV).reduce((obj, [k, v]) => {
@@ -17,22 +17,19 @@ const ENV = Object.entries(DEFAULT_ENV).reduce((obj, [k, v]) => {
 
 const DIST = path.resolve(__dirname, 'dist');
 
-
 export default (_env: any, options: { mode: string }) => {
   const IS_PROD = options.mode === 'production';
 
   return {
-    entry: [
-      './src/index.tsx'
-    ],
+    entry: ['./src/index.tsx'],
     output: {
       filename: 'client.js',
       publicPath: '/',
-      path: DIST
+      path: DIST,
     },
     devtool: IS_PROD ? false : 'cheap-module-eval-source-map',
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.jsx']
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
 
     module: {
@@ -42,29 +39,30 @@ export default (_env: any, options: { mode: string }) => {
           loaders: [
             'babel-loader',
             {
-              loader: 'ts-loader', options: {
+              loader: 'ts-loader',
+              options: {
                 transpileOnly: true,
                 experimentalWatchApi: true,
                 allowTsInNodeModules: true,
                 compilerOptions: {
-                  sourceMap: !IS_PROD
-                }
-              }
-            }
-          ]
+                  sourceMap: !IS_PROD,
+                },
+              },
+            },
+          ],
         },
         {
           test: /\/fonts\/.*\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-          loader: 'file-loader?name=fonts/[hash].[ext]'
+          loader: 'file-loader?name=fonts/[hash].[ext]',
         },
         {
           test: [/\/images\/.*\.svg$/, /@coreui\/icons/],
-          loader: 'svg-react-loader'
+          loader: 'svg-react-loader',
         },
         {
           test: /\.(graphql|gql)$/,
           exclude: /node_modules/,
-          loader: 'graphql-tag/loader'
+          loader: 'graphql-tag/loader',
         },
 
         {
@@ -75,37 +73,36 @@ export default (_env: any, options: { mode: string }) => {
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true
-              }
-            }
-          ]
+                sourceMap: true,
+              },
+            },
+          ],
         },
         {
           test: /\.(png|jpg|gif)$/,
-          use: [
-            'file-loader'
-          ]
-        }
-      ]
+          use: ['file-loader'],
+        },
+      ],
     },
 
     plugins: [
       new MiniCssExtractPlugin({
         filename: 'styles.css',
-        chunkFilename: 'styles.css'
+        chunkFilename: 'styles.css',
       }),
       new htmlWebpackPlugin({
         title: 'Web Chat App',
-        template: './src/index.html'
+        template: './src/index.html',
       }),
       new webpack.DefinePlugin(ENV),
       new PluginReplace({
         values: {
-          '%%API_URL%%': process.env.NODE_ENV === 'production'
-            ? 'https://cm-chatapp.herokuapp.com'
-            : 'http://localhost:9999'
-        }
-      })
+          '%%API_URL%%':
+            process.env.NODE_ENV === 'production'
+              ? 'https://chat-app-dm.herokuapp.com'
+              : 'http://localhost:9999',
+        },
+      }),
     ],
 
     devServer: {
@@ -113,12 +110,12 @@ export default (_env: any, options: { mode: string }) => {
       compress: true,
       port: 8888,
       historyApiFallback: true,
-      writeToDisk: true
+      writeToDisk: true,
     },
 
     optimization: {
       minimize: true,
-      minimizer: [new PluginTerser()]
-    }
+      minimizer: [new PluginTerser()],
+    },
   } as webpack.Configuration;
 };
