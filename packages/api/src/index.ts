@@ -34,7 +34,6 @@ const run = async () => {
   // const users = await User.findAll();
   // console.log(users);
 
-
   // Use the middleware for ALL requests (Includes get, post, put, any url)
   app.use(cors());
   app.use(bodyParser.json()); // for parsing application/json
