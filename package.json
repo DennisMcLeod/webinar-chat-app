@@ -12,11 +12,7 @@
     "postinstall": "cd packages/api; yarn build",
     "bootstrap": "yarn; lerna bootstrap; lerna link;",
     "start-api": "cd packages/api; yarn start",
-<<<<<<< HEAD
-    "build-client": "cd packages/client yarn build"
-=======
     "build-client": "cd packages/client; yarn build"
->>>>>>> baecf066eee3f1ed9560315a0077de0695dca480
   },
   "dependencies": {
     "lerna": "^3.20.2",
