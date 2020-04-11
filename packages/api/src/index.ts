@@ -47,7 +47,9 @@ const run = async () => {
   app.use('/messages', middlewareAuth, messagesRouter);
 
   // Running the web server on port 9999
-  app.listen(9999);
+  const port = process.env.PORT || 9999;
+
+  app.listen(port);
   console.log('API running on http://localhost:9999');
 };
 
